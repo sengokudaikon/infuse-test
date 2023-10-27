@@ -10,5 +10,5 @@ CREATE TABLE visitor_info
     page_url    VARCHAR(2083) NOT NULL,
     views_count INT           NOT NULL
 );
-ALTER TABLE visitor_info
-    ADD INDEX ip_user_page_idx (ip_address(15), user_agent(100), page_url(100));
+INSERT INTO visitor_info (ip_address, user_agent, view_date, page_url, views_count)
+VALUES ('192.168.0.1', 'Mozilla/5.0', NOW(), 'http://example.com', 1);
