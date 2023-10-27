@@ -11,7 +11,8 @@ readonly class RecordVisitorView
 {
     public function __construct(
         private VisitorRepositoryInterface $visitorRepository
-    ) {}
+    ) {
+    }
 
     public function execute(Visitor $visitor): void
     {

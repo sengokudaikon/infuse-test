@@ -5,10 +5,14 @@ DB_SERVICE := db
 # The command to run docker-compose
 DC := docker compose
 
+start:
+	$(DC) up -d --build
 ## Launch the whole environment
 up:
 	$(DC) up -d
 
+stop:
+	$(DC) down
 ## Run a shell in the app container
 sh:
 	$(DC) exec $(PHP_SERVICE) /bin/sh
@@ -23,11 +27,11 @@ deps:
 
 ## Run PHPCS Fixer
 phpcs:
-	$(DC) exec $(PHP_SERVICE) ./vendor/bin/php-cs-fixer fix
+	$(DC) exec $(PHP_SERVICE) ./vendor/bin/php-cs-fixer fix src --diff --verbose --allow-risky=yes
 
 ## Run Psalm
 psalm:
-	$(DC) exec $(PHP_SERVICE) ./vendor/bin/psalm
+	$(DC) exec $(PHP_SERVICE) ./vendor/bin/psalm --alter --issues=all
 
 restart:
 	$(DC) down && $(DC) up -d
@@ -35,5 +39,6 @@ restart:
 ## Reset and rebuild the whole environment
 reset:
 	$(DC) down --rmi all && $(DC) up -d --build
-
-.PHONY: up sh db deps phpcs psalm restart reset
+restart-nginx-exporter:
+	$(DC) restart nginx-exporter
+.PHONY: start up stop sh db deps phpcs psalm restart reset restart-nginx-exporter

@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 namespace Adapter;
@@ -11,7 +12,8 @@ readonly class BannerAdapter
 {
     public function __construct(
         private RecordVisitorView $recordVisitorView
-    ) {}
+    ) {
+    }
 
     public function handleRequest(): void
     {

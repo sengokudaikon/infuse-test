@@ -12,7 +12,6 @@ class Visitor
         public string $viewDate,
         public string $pageUrl,
         public int $viewsCount
-    )
-    {
+    ) {
     }
 }
